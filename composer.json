@@ -7,13 +7,15 @@
     "authors": [
         {
             "name": "Alireza Sedghi",
-            "email": "alirezasedghi911@gmail.com"
+            "email": "alirezasedghi911@gmail.com",
+            "homepage": "https://alirezasedghi.com/",
+            "role": "Developer"
         }
     ],
     "require": {
         "php": ">=8.0.0",
         "ext-dom": "*",
-        "illuminate/support": "^8.0|^9.0|^10.0|^11,0"
+        "illuminate/support": "^8.0|^9.0|^10.0|^11.0"
     },
     "autoload": {
         "psr-4": {
