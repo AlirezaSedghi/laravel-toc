@@ -1,0 +1,23 @@
+{
+    "name": "alirezasedghi/laravel-toc",
+    "description": "Table of contents for Laravel",
+    "keywords": ["laravel", "toc", "table of contents"],
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alireza Sedghi",
+            "email": "alirezasedghi911@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=8.0.0",
+        "ext-dom": "*",
+        "illuminate/support": "^8.0|^9.0|^10.0|^11,0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Alirezasedghi\\LaravelTOC\\": "src/"
+        }
+    }
+}
