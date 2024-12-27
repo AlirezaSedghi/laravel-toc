@@ -57,7 +57,7 @@ class TOCGenerator
         }
 
         libxml_use_internal_errors(true);
-        @$this->dom->loadHTML('<?xml version="1.0" encoding="UTF-8"?>'."\n".mb_convert_encoding($this->html, 'HTML-ENTITIES', 'UTF-8'), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD); // Suppress warnings
+        @$this->dom->loadHTML('<?xml encoding="UTF-8">' . $this->html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
         $minLevel = $this->options['min_level'];
         $maxLevel = $this->options['max_level'];
@@ -65,13 +65,18 @@ class TOCGenerator
         // Get the minimum level
         $this->minFoundLevel = $this->findMinHeadingLevel();
 
-        foreach ($this->headings as $index => $heading) {
-            $level = $index + 1;
+        // Find all heading nodes in the order they appear
+        $xpath = new \DOMXPath($this->dom);
+        $xpathQuery = implode(' | ', array_map(fn($h) => '//' . $h, $this->headings));
+        $nodes = $xpath->query($xpathQuery);
+
+        foreach ($nodes as $node) {
+            $heading = strtolower($node->nodeName);
+            $level = (int)substr($heading, 1);
+
+            // Process only headings within the desired level range
             if ($level >= $minLevel && $level <= $maxLevel) {
-                $nodes = $this->dom->getElementsByTagName($heading);
-                foreach ($nodes as $node) {
-                    $this->processHeading($node, $heading);
-                }
+                $this->processHeading($node, $heading);
             }
         }
 
@@ -211,6 +216,10 @@ class TOCGenerator
      */
     public function getProcessedHtml(): string
     {
-        return $this->dom->saveHTML();
+        $html = $this->dom->saveHTML();
+        $html = preg_replace('/^<\?xml[^>]+>\s*/', '', $html);
+
+        // Convert HTML entities back to UTF-8 characters
+        return html_entity_decode($html, ENT_QUOTES | ENT_HTML5, 'UTF-8');
     }
 }
