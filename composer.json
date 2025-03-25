@@ -1,5 +1,5 @@
 {
-    "name": "alirezasedghi/laravel-toc",
+    "name": "anielka41/laravel-toc",
     "description": "Table of contents for Laravel",
     "keywords": ["laravel", "toc", "table of contents"],
     "type": "library",
@@ -15,7 +15,7 @@
     "require": {
         "php": ">=8.0.0",
         "ext-dom": "*",
-        "illuminate/support": "^8.0|^9.0|^10.0|^11.0"
+        "illuminate/support": "^8.0|^9.0|^10.0|^11.0|^12.0"
     },
     "autoload": {
         "psr-4": {
